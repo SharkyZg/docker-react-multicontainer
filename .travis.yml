@@ -8,3 +8,17 @@ before_install:
 
 script:
     - docker run -e CI=true markosarkanj/react-test npm run test
+
+after_success:
+    - docker build -t markosarkanj/multi-client ./client
+    - docker build -t markosarkanj/multi-nginx ./nginx
+    - docker build -t markosarkanj/multi-server ./server
+    - docker build -t markosarkanj/multi-worker ./worker
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # take docker images and push them to docker hub
+    - docker push  markosarkanj/multi-client
+    - docker push  markosarkanj/multi-nginx
+    - docker push  markosarkanj/multi-server
+    - docker push  markosarkanj/multi-worker
+    
