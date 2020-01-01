@@ -5,7 +5,8 @@
             "name": "client",
             "image": "sharky84/multi-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 
         },     
         {
             "name": "server",
